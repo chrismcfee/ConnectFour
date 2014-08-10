@@ -31,7 +31,7 @@ void Initialize() {
 int InitializeMenu() {
   int c, i = 0;
   int choice = 0;
-  char *s = "PRESS ENTER OR SPACE TO SELECT OPTION";
+  char *s = "Press SPACE or ENTER to choose an option";
   nodelay(stdscr, TRUE);
   DrawMenu(choice);
   DrawTitle(0);
@@ -102,7 +102,7 @@ void PlayerSelect() {
 
   /* Print Color Choice Menu for Player 1 */
   mvprintw(1, (maxx - strlen(msg1) - strlen(p[0].name)) / 2,
-          "%s%s", msg1, p[0].name);
+	   "%s%s", msg1, p[0].name);
   DrawPickColor(3, colorChoice[1]);
   while(1) {
     c = getch();
@@ -121,7 +121,7 @@ void PlayerSelect() {
 
   /* Print Color Choice Menu for Player 2 */
   mvprintw(6, (maxx - strlen(msg1) - strlen(p[1].name)) / 2,
-          "%s%s", msg1, p[1].name);
+	   "%s%s", msg1, p[1].name);
   DrawPickColor(8, colorChoice[2]);
   while(1) {
     c = getch();
@@ -146,8 +146,8 @@ to play with the same color as %s?", p[1].name, p[0].name);
           mvprintw(15, (maxx - strlen("YES(y) / NO(n)")) / 2, "              ");
         }
       }
-    else
-      break;
+      else
+	break;
     }
 
     if(c == KEY_LEFT) {
@@ -169,21 +169,21 @@ to play with the same color as %s?", p[1].name, p[0].name);
 void DrawPickColor(int y, int colorChoice) {
   int i;
   switch(colorChoice) {
-    case 0:
-      mvaddch(y, 6, '*');
-      mvaddch(y, maxx / 2 - 2, ' ');
-      mvaddch(y, maxx - 13, ' ');
-      break;
-    case 1:
-      mvaddch(y, 6, ' ');
-      mvaddch(y, maxx / 2 - 2, '*');
-      mvaddch(y, maxx - 13, ' ');
-      break;
-    case 2:
-      mvaddch(y, 6, ' ');
-      mvaddch(y, maxx / 2 - 2, ' ');
-      mvaddch(y, maxx - 13, '*');
-      break;
+  case 0:
+    mvaddch(y, 6, '*');
+    mvaddch(y, maxx / 2 - 2, ' ');
+    mvaddch(y, maxx - 13, ' ');
+    break;
+  case 1:
+    mvaddch(y, 6, ' ');
+    mvaddch(y, maxx / 2 - 2, '*');
+    mvaddch(y, maxx - 13, ' ');
+    break;
+  case 2:
+    mvaddch(y, 6, ' ');
+    mvaddch(y, maxx / 2 - 2, ' ');
+    mvaddch(y, maxx - 13, '*');
+    break;
   }
   attrset(COLOR_PAIR(1));
   mvprintw(y, 7, "RED");
@@ -197,7 +197,7 @@ void DrawPickColor(int y, int colorChoice) {
   
 void Quit() {
   clear();
-  char *msg = "Goodbye!";
+  char *msg = "Hope to see you soon, bye!";
   mvaddstr(maxy / 2, (maxx - strlen(msg)) / 2, msg);
   DrawTitle(0);
   refresh();
@@ -209,7 +209,7 @@ int Pause() {
   int c;
   time_t start_pause = time(NULL), end_pause;
   char *msg = "GAME PAUSED ---> PRESS p FOR RESUMING THE GAME",
-      *msg2 = "                                              ";
+    *msg2 = "                                              ";
   mvprintw(0, (maxx - strlen(msg)) / 2, "%s", msg);
   while(1) {
     c = getch();
@@ -338,7 +338,7 @@ void PopOutSelection() {
 
 void DrawTitle(int y) {
   title = newwin(7, 79, y, 0);
-  wattron(title, COLOR_PAIR(3));
+  wattron(title, COLOR_PAIR(9));
   int i;
   for(i = 0; i < 5; i++) {
     refresh();
