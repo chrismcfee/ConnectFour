@@ -59,9 +59,7 @@ void UpdatePlayer(Player p) {
 void PrintDatabase() {
   f = fopen("scoreDatabase.bin", "rb");
   Player p;
-  char evaluate[]= "Evaluating...";
-  printf("%s", evaluate);
-  while((fread(&p, sizeof(p), 1, f)) == 1) {i
+  while((fread(&p, sizeof(p), 1, f)) == 1) {
     printf("%s has %d points\n", p.name, p.score);
   }
   fclose(f);
