@@ -6,7 +6,7 @@ void DrawBoardLayout() {
   int c;
   int x, y, boardmaxx = 44, boardmaxy = 19;
   board = newwin(boardmaxy, boardmaxx, 4, 3);
-  wattron(board, COLOR_PAIR(4));
+  wattron(board, COLOR_PAIR(1));
 
   for(x = 0; x < boardmaxx; x++) {
     mvwaddch(board, 0, x, '*');
