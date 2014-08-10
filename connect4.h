@@ -10,6 +10,7 @@ typedef struct {
   int score;
 }Player;
 
+/* External Variables*/
 extern FILE *f, *saveFile;
 extern Player p[2];
 extern char menuList[3][20], players[2][30], saveFileName[15];

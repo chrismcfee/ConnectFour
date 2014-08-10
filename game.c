@@ -1,27 +1,35 @@
 #include "connect4.h"
+
 void DrawBoardLayout() {
   clear();
+
   int c;
   int x, y, boardmaxx = 44, boardmaxy = 19;
   board = newwin(boardmaxy, boardmaxx, 4, 3);
-  wattron(board, COLOR_PAIR(4));
+  wattron(board, COLOR_PAIR(3));
+
   for(x = 0; x < boardmaxx; x++) {
     mvwaddch(board, 0, x, '*');
     mvwaddch(board, boardmaxy - 1, x, '*');
   }
+
   for(y = 0; y < boardmaxy; y++) {
     mvwaddstr(board, y, 0, "**");
     mvwaddstr(board, y, boardmaxx - 2, "**");
   }
+  
   for(y = 1; y <= boardmaxy - 2; y++)
     for(x = 0; x < boardmaxx; x += 6)
       mvwaddstr(board, y, x, "**");
+
   for(x = 1; x <= boardmaxx - 2; x++)
     for(y = 0; y < boardmaxy; y += 3)
       mvwaddch(board, y, x, '*');
+
   refresh();
   wrefresh(board);
 }
+
 void DrawBoard() {
   int i, j, x, y;
   for(i = 1; i <= 6; i++) {
@@ -29,7 +37,7 @@ void DrawBoard() {
     for(j = 1; j <= 7; j++) {
       x = 2 + 6 * (j - 1);
       if(boardState[i][j] != 0) {
-	switch(boardState[i][j]) {
+        switch(boardState[i][j]) {
 	case 1:
 	  wattrset(board, COLOR_PAIR(colorChoice[1]));
 	  break;
@@ -39,21 +47,22 @@ void DrawBoard() {
 	case 3:
 	  wattrset(board, COLOR_PAIR(8));
 	  break;
-	}
+        }
 	mvwaddstr(board, y, x, "****");
 	mvwaddstr(board, y + 1, x, "****");
 	wattrset(board, A_NORMAL);
       }
       else {
-	wattrset(board, COLOR_PAIR(1));
-	mvwaddstr(board, y, x, " ");
-	mvwaddstr(board, y + 1, x, " ");
+        wattrset(board, COLOR_PAIR(1));
+        mvwaddstr(board, y, x, "    ");
+        mvwaddstr(board, y + 1, x, "    ");
       }
     }
   }
   refresh();
   wrefresh(board);
 }
+
 void Play() {
   int c, availableRow, colChosen = 0, color = colorChoice[1];
   turn = 1;
@@ -64,7 +73,7 @@ void Play() {
     PrintScore();
     if(c == 'q') {
       int ch;
-      DrawPrompt("Are you sure you want to quit?\n YES(y)/NO(n)");
+      DrawPrompt("REALLY QUIT?\n YES(y)/NO(n)");
       do {
 	ch = getch();
       }while(ch != 'y' && ch != 'n');
@@ -243,10 +252,11 @@ void AnimatePiece(int turn, int colChosen) {
     napms(120);
     boardState[i][colChosen + 1] = 0;
     DrawBoard(boardState);
+    refresh();
     i++;
   }
 }
-/* Display a piece above the board */
+
 void PreviewPiece(int row, int colChosen, int color) {
   int i;
   for(i = 0; i < 7; i++) {
@@ -260,8 +270,10 @@ void PreviewPiece(int row, int colChosen, int color) {
       mvprintw(row, 5 + 6 * i, " ");
       mvprintw(row + 1, 5 + 6 * i, " ");
     }
+    refresh();
   }
 }
+
 int GetAvailableRow(int col) {
   int i = 0;
   while(boardState[i + 1][col] == 0 && i <= 5)
@@ -307,23 +319,24 @@ void PrintScore() {
   mvprintw(5, 50, "%s VS %s", p[0].name, p[1].name);
   attroff(A_BOLD);
   /* print current score */
-  mvprintw(7, 50, "Current points:");
+  mvprintw(7, 50, "Score for the current session:");
   mvprintw(8, 50, "%s: %d", p[0].name, curPointsPlayer[0]);
   mvprintw(9, 50, "%s: %d", p[1].name, curPointsPlayer[1]);
   /* print total score for each player */
-  mvprintw(11, 50, "Total points:");
+  mvprintw(11, 50, "Lifetime Player Score:");
   mvprintw(12, 50, "%s: %d", p[0].name, p[0].score);
   mvprintw(13, 50, "%s: %d", p[1].name, p[1].score);
   if(popOutActive == 1) {
-    mvprintw(18, 50, "Press 'o' to Pop Out!");
+    mvprintw(18, 50, "POPOUT: O");
   }
   else {
-    mvprintw(18, 50, "Key bindings:");
+    mvprintw(18, 50, "Default Key bindings:");
   }
-  mvprintw(19, 50, "LEFT: a / <-");
-  mvprintw(20, 50, "RIGHT: d / ->");
-  mvprintw(21, 50, "ACTION: SPACE / ENTER");
-  mvprintw(22, 50, "SAVE:s QUIT:q PAUSE:p");
+  mvprintw(19, 50, "LEFT: A | LEFT: <-");
+  mvprintw(20, 50, "RIGHT: D | RIGHT: ->");
+  mvprintw(21, 50, "_____________________________");
+  mvprintw(22, 50, "ACTION: SPACE | ACTION: ENTER");
+  mvprintw(23, 50, "SAVE:S | QUIT:Q | PAUSE:P");
 }
 /* Put zeroes in the boardState matrix */
 void ResetBoard() {
@@ -333,7 +346,7 @@ void ResetBoard() {
       boardState[i][j] = 0;
 }
 void GameIsDraw() {
-  char *msg = "It's a draw!\n Do you want to play another one?\n YES(y) / NO(n)";
+  char *msg = "DRAW!\n PLAY AGAIN?\n YES(y) / NO(n)";
   int ch;
   DrawPrompt(msg);
   do {
@@ -379,7 +392,7 @@ void PopOut(int colChosen) {
 	char msg[100];
 	int ch;
 	colsFull = 0;
-	sprintf(msg, "%s has won!\n Do you want to play again?\n YES(y)/NO(n)",
+	sprintf(msg, "%s WINS!\n PLAY AGAIN?\n YES(y)/NO(n)",
 		p[i].name);
 	curPointsPlayer[i]++;
 	p[i].score++;
@@ -406,7 +419,7 @@ void GameOver() {
   char msg[100];
   int ch;
   colsFull = 0;
-  sprintf(msg, "%s has won!\n Do you want to play again?\n YES(y)/NO(n)",
+  sprintf(msg, "%s WINS!\n PLAY AGAIN OR EXIT?\n YES(y)/NO(n)",
 	  p[turn - 1].name);
   curPointsPlayer[turn - 1]++;
   p[turn - 1].score++;

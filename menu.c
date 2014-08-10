@@ -31,7 +31,7 @@ void Initialize() {
 int InitializeMenu() {
   int c, i = 0;
   int choice = 0;
-  char *s = "Press SPACE or ENTER to choose an option";
+  char *s = "PRESS ENTER/SPACE TO SELECT OPTION";
   nodelay(stdscr, TRUE);
   DrawMenu(choice);
   DrawTitle(0);
@@ -77,15 +77,15 @@ void DrawMenu(int choice) {
 
 /* Select name and color for both players */
 void PlayerSelect() {
-  char *msg1 = "Choose your color, ";
+  char *msg1 = "CHOOSE COLOR, ";
   int c, i;
   nodelay(stdscr, FALSE);
   clear();
   echo();
-  mvprintw(maxy / 4, maxx / 6, "Enter name for player 1: ");
+  mvprintw(maxy / 4, maxx / 6, "ENTER P1 NAME: ");
   refresh();
   getnstr(p[0].name, 10);
-  mvprintw(maxy / 4 + 2, maxx / 6, "Enter name for player 2: ");
+  mvprintw(maxy / 4 + 2, maxx / 6, "ENTER P2 NAME: ");
   getnstr(p[1].name, 10);
 
   /* Check if player is in database */
@@ -197,7 +197,7 @@ void DrawPickColor(int y, int colorChoice) {
   
 void Quit() {
   clear();
-  char *msg = "Hope to see you soon, bye!";
+  char *msg = "EXIT";
   mvaddstr(maxy / 2, (maxx - strlen(msg)) / 2, msg);
   DrawTitle(0);
   refresh();
@@ -208,7 +208,7 @@ void Quit() {
 int Pause() {
   int c;
   time_t start_pause = time(NULL), end_pause;
-  char *msg = "GAME PAUSED ---> PRESS p FOR RESUMING THE GAME",
+  char *msg = "GAME PAUSED ---> PRESS P TO RESUME",
     *msg2 = "                                              ";
   mvprintw(0, (maxx - strlen(msg)) / 2, "%s", msg);
   while(1) {
@@ -338,7 +338,7 @@ void PopOutSelection() {
 
 void DrawTitle(int y) {
   title = newwin(7, 79, y, 0);
-  wattron(title, COLOR_PAIR(9));
+  wattron(title, COLOR_PAIR(3));
   int i;
   for(i = 0; i < 5; i++) {
     refresh();
