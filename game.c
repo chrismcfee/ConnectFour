@@ -334,7 +334,7 @@ void PrintScore() {
   }
   mvprintw(19, 50, "LEFT: A | LEFT: <-");
   mvprintw(20, 50, "RIGHT: D | RIGHT: ->");
-  mvprintw(21, 50, "________________________________");
+  mvprintw(21, 50, "_____________________________");
   mvprintw(22, 50, "ACTION: SPACE | ACTION: ENTER");
   mvprintw(23, 50, "SAVE:S | QUIT:Q | PAUSE:P");
 }
