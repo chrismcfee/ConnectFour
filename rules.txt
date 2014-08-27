@@ -14,7 +14,7 @@ The solved conclusion for Connect Four is first player win. With perfect play, t
 
 
 
-RULES (FROM ORIGINAL MILTON BRADLEY GAME BOX)
+RULES (from original Milton Bradley game box)
 _____________________________________________________
 
 1. Decide who plays first. Players will alternate turns after playing a checker.
