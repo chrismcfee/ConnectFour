@@ -12,4 +12,4 @@ $ make build
 
 $ make run
 
-You can also install if you want, but you have to manually add the executable to your /bin directory.
+You can also install if you want, but you may have to manually add the executable to your /bin directory.
